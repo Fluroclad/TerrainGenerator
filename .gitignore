@@ -499,3 +499,7 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,visualstudio,visualstudiocode,linux,osx,windows,cmake,conan
+
+# 
+[Bb]uild/
+[Oo]ut/
