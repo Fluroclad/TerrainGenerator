@@ -12,3 +12,11 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title) {
 Window::~Window() {
 	glfwDestroyWindow(m_window);
 }
+
+bool Window::ShouldClose() const {
+	return glfwWindowShouldClose(m_window);
+}
+
+void Window::Update() {
+	glfwPollEvents();
+}

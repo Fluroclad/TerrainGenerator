@@ -12,6 +12,10 @@ public:
 	Window(uint32_t width, uint32_t height, const std::string& title);
 	~Window();
 
+	bool ShouldClose() const;
+
+	void Update();
+
 private:
 	GLFWwindow* m_window;
 };

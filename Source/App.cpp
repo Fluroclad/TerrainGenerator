@@ -10,9 +10,15 @@ App::App(uint32_t width, uint32_t height, const std::string& title) {
 		// Initialization failed
 	}
 
-	m_pWindow = new Window(width, height, title);
+	m_window = new Window(width, height, title);
 }
 
 App::~App() {
 	glfwTerminate();
+}
+
+void App::Run() {
+	while (!m_window->ShouldClose()) {
+		m_window->Update();
+	}
 }

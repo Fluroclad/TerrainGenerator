@@ -5,11 +5,9 @@
 
 
 int main() {
-	App* pApp = new App(1280, 760, "Terrain Generator");
+	App* game = new App(1280, 760, "Terrain Generator");
 
-	while(true)
-	{ // do nothing 
-	}
+	game->Run();
 
 	return 0;
 }
