@@ -22,3 +22,7 @@ void App::Run() {
 		m_window->Update();
 	}
 }
+
+void App::SetTitle(const std::string& title) {
+	m_window->SetTitle(title);
+}

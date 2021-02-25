@@ -16,6 +16,8 @@ public:
 
 	void Update();
 
+	void SetTitle(const std::string& title);
+
 private:
 	GLFWwindow* m_window;
 

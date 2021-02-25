@@ -13,6 +13,10 @@ public:
 
 	void Run();
 
+	void SetTitle(const std::string& title);
+
+	Window& GetWindow() { return *m_window; }
+
 private:
 	Window* m_window;
 };

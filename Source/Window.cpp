@@ -26,6 +26,10 @@ void Window::Update() {
 	glfwPollEvents();
 }
 
+void Window::SetTitle(const std::string& title) {
+	glfwSetWindowTitle(m_window, title.c_str());
+}
+
 void Window::HandleWindowResize(GLFWwindow* window, int width, int height) {
 	
 }
