@@ -7,6 +7,11 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title) {
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
 	m_window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+
+	glfwSetWindowUserPointer(m_window, this);
+
+	glfwSetWindowSizeCallback(m_window, &HandleWindowResize);
+	glfwSetFramebufferSizeCallback(m_window, &HandleFrameBufferResize);
 }
 
 Window::~Window() {
@@ -19,4 +24,12 @@ bool Window::ShouldClose() const {
 
 void Window::Update() {
 	glfwPollEvents();
+}
+
+void Window::HandleWindowResize(GLFWwindow* window, int width, int height) {
+	
+}
+
+void Window::HandleFrameBufferResize(GLFWwindow* window, int width, int height) {
+
 }

@@ -18,4 +18,7 @@ public:
 
 private:
 	GLFWwindow* m_window;
+
+	static void HandleWindowResize(GLFWwindow* window, int width, int height);
+	static void HandleFrameBufferResize(GLFWwindow* window, int width, int height);
 };
