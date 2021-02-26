@@ -20,6 +20,8 @@ set(APP_SRCS
 		App.cpp
 		Window.cpp
 		Graphics.cpp
+
+		Vulkan/Device.cpp
 )
 
 set(APP_INC
@@ -27,6 +29,8 @@ set(APP_INC
 		App.hpp
 		Window.hpp
 		Graphics.hpp
+
+		Vulkan/Device.hpp
 )
 
 add_executable(TerrainGenerator ${APP_SRCS})
