@@ -11,6 +11,8 @@ App::App(uint32_t width, uint32_t height, const std::string& title) {
 	}
 
 	m_window = new Window(width, height, title);
+
+	m_graphics = new Graphics();
 }
 
 App::~App() {

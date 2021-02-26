@@ -4,7 +4,7 @@
 #pragma once
 
 #include "Window.hpp"
-
+#include "Graphics.hpp"
 
 class App {
 public:
@@ -19,4 +19,5 @@ public:
 
 private:
 	Window* m_window;
+	Graphics* m_graphics;
 };
