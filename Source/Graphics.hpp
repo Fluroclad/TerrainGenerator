@@ -8,6 +8,8 @@
 #include <vector>
 #include "Window.hpp"
 
+#include "vulkan/Device.hpp"
+
 class Graphics {
 public:
 	Graphics();
@@ -17,7 +19,8 @@ public:
 
 private:
 	Window* m_window;
-	VkInstance instance;
+	VkInstance m_instance;
+	Device* m_device;
 
 	bool CheckValidationLayers();
 };
