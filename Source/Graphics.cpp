@@ -1,5 +1,5 @@
 // Terrain Generator
-// (c) 2020 Daniel Dickson, All Rights Reserved.
+// (c) 2021 Daniel Dickson, All Rights Reserved.
 
 #include "Graphics.hpp"
 #include <iostream>
@@ -13,9 +13,11 @@ const bool enable_validation_layers = false;
 const bool enable_validation_layers = true;
 #endif
 
-Graphics::Graphics() {
+Graphics::Graphics(Window* window) {
+	m_window = window;
 	CreateInstance();
-	m_device = new Device(m_instance);
+	m_surface = new Surface(m_instance, m_window);
+	m_device = new Device(m_instance, m_surface);
 }
 
 Graphics::~Graphics() {

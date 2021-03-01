@@ -1,5 +1,5 @@
 // Terrain Generator
-// (c) 2020 Daniel Dickson, All Rights Reserved.
+// (c) 2021 Daniel Dickson, All Rights Reserved.
 
 #include "App.hpp"
 
@@ -12,7 +12,7 @@ App::App(uint32_t width, uint32_t height, const std::string& title) {
 
 	m_window = new Window(width, height, title);
 
-	m_graphics = new Graphics();
+	m_graphics = new Graphics(m_window);
 }
 
 App::~App() {

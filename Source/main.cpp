@@ -1,5 +1,5 @@
 // Terrain Generator
-// (c) 2020 Daniel Dickson, All Rights Reserved.
+// (c) 2021 Daniel Dickson, All Rights Reserved.
 
 #include "App.hpp"
 

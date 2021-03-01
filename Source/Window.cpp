@@ -1,10 +1,11 @@
 // Terrain Generator
-// (c) 2020 Daniel Dickson, All Rights Reserved.
+// (c) 2021 Daniel Dickson, All Rights Reserved.
 
 #include "Window.hpp"
 
 Window::Window(uint32_t width, uint32_t height, const std::string& title) {
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 	m_window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 

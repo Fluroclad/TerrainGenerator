@@ -1,5 +1,5 @@
 # Terrain Generator
-# (c) 2020 Daniel Dickson, All Rights Reserved.
+# (c) 2021 Daniel Dickson, All Rights Reserved.
 
 
 ## Find Vulkan Library
@@ -22,6 +22,7 @@ set(APP_SRCS
 		Graphics.cpp
 
 		Vulkan/Device.cpp
+		Vulkan/Surface.cpp
 )
 
 set(APP_INC
@@ -31,6 +32,7 @@ set(APP_INC
 		Graphics.hpp
 
 		Vulkan/Device.hpp
+		Vulkan/Surface.hpp
 )
 
 add_executable(TerrainGenerator ${APP_SRCS})

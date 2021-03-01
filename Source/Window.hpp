@@ -1,8 +1,9 @@
 // Terrain Generator
-// (c) 2020 Daniel Dickson, All Rights Reserved.
+// (c) 2021 Daniel Dickson, All Rights Reserved.
 
 #pragma once
 
+#define GLFW_INCLUDE_VULKAN
 #include <GLFW\glfw3.h>
 #include <string>
 
@@ -13,10 +14,11 @@ public:
 	~Window();
 
 	bool ShouldClose() const;
-
 	void Update();
-
+	
 	void SetTitle(const std::string& title);
+
+	GLFWwindow* GetWindow() { return m_window; }
 
 private:
 	GLFWwindow* m_window;
