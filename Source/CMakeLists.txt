@@ -35,3 +35,5 @@ set(APP_INC
 
 add_executable(TerrainGenerator ${APP_SRCS})
 target_link_libraries(TerrainGenerator ${CONAN_LIBS} ${Vulkan_LIBRARY})
+
+set_target_properties(TerrainGenerator PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)

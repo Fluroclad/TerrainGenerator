@@ -3,6 +3,34 @@
 
 #include "Device.hpp"
 
+QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device) {
+	QueueFamilyIndices indices;
+	uint32_t queue_family_count = 0;
+	vkGetPhysicalDeviceQueueFamilyProperties(device, &queue_family_count, nullptr);
+
+	std::vector<VkQueueFamilyProperties> Queue_families(queue_family_count);
+	vkGetPhysicalDeviceQueueFamilyProperties(device, &queue_family_count, Queue_families.data());
+
+	int i = 0;
+	for (const auto& queue_family : Queue_families) {
+		if (queue_family.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+			indices.GraphicsFamily = i;
+		}
+
+		if (indices.IsComplete()) {
+			break;
+		}
+
+		i++;
+	}
+
+	return indices;
+}
+
+bool QueueFamilyIndices::IsComplete() {
+	return GraphicsFamily.has_value();
+}
+
 Device::Device(VkInstance instance) {
 	uint32_t device_count = 0;
 
@@ -17,7 +45,6 @@ Device::Device(VkInstance instance) {
 
 	for (const auto& device : devices) {
 		if (IsDeviceSuitable(device)) {
-			//throw std::runtime_error("DEVICE IS SUITABLE!");
 			m_physical_device = device;
 			break;
 		}
@@ -29,20 +56,7 @@ Device::Device(VkInstance instance) {
 }
 
 bool Device::IsDeviceSuitable(VkPhysicalDevice device) {
-	VkPhysicalDeviceProperties2 device_properties;
-	VkPhysicalDeviceFeatures2 device_features;
-	
-	vkGetPhysicalDeviceProperties2(device, &device_properties);
-	vkGetPhysicalDeviceFeatures2(device, &device_features);
+	QueueFamilyIndices indices = FindQueueFamilies(device);
 
-	// Return true till I work out what is going on.
-	return true;
-	
-	// Code here is for API v1.0
-	//return device_properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU &&
-	//	device_features.geometryShader;
-
-	// Code here is for API v1.2
-	//return device_properties.properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU &&
-	//	device_features.features.geometryShader;
+	return indices.IsComplete();
 }
