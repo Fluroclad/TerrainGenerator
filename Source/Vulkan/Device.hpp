@@ -10,7 +10,7 @@
 #include <iostream>
 
 struct QueueFamilyIndices {
-	std::optional<uint32_t> GraphicsFamily;
+	std::optional<uint32_t> graphics_family;
 
 	bool IsComplete();
 };
@@ -18,10 +18,15 @@ struct QueueFamilyIndices {
 
 class Device {
 public:
-	Device(VkInstance instance);
+	Device(VkInstance& instance);
 
 private:
 	VkPhysicalDevice m_physical_device = VK_NULL_HANDLE;
+	VkDevice m_device;
+	VkInstance m_instance;
+	VkQueue m_graphics_queue;
 	
+	void SelectPhysicalDevice();
+	void CreateDevice();
 	bool IsDeviceSuitable(VkPhysicalDevice device);
 };
