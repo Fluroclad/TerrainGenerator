@@ -3,6 +3,11 @@
 
 #include "Device.hpp"
 
+// Extensions
+const std::vector<const char*> device_extensions = {
+	VK_KHR_SWAPCHAIN_EXTENSION_NAME
+};
+
 QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surface) {
 	QueueFamilyIndices indices;
 
@@ -12,6 +17,7 @@ QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surfa
 	std::vector<VkQueueFamilyProperties> Queue_families(queue_family_count);
 	vkGetPhysicalDeviceQueueFamilyProperties(device, &queue_family_count, Queue_families.data());
 	
+	// Search for queue support family and present
 	int i = 0;
 	for (const auto& queue_family : Queue_families) {
 		if (queue_family.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
@@ -95,7 +101,8 @@ void Device::CreateDevice() {
 	device_info.pQueueCreateInfos = queue_create_infos.data();
 	device_info.queueCreateInfoCount = static_cast<uint32_t>(queue_create_infos.size());
 	device_info.pEnabledFeatures = &device_features;
-	device_info.enabledExtensionCount = 0;
+	device_info.enabledExtensionCount = static_cast<uint32_t>(device_extensions.size());
+	device_info.ppEnabledExtensionNames = device_extensions.data();
 
 	if (vkCreateDevice(m_physical_device, &device_info, nullptr, &m_device) != VK_SUCCESS) {
 		throw std::runtime_error("Failed to create device!");
@@ -107,6 +114,53 @@ void Device::CreateDevice() {
 
 bool Device::IsDeviceSuitable(VkPhysicalDevice device) {
 	QueueFamilyIndices indices = FindQueueFamilies(device, m_surface->GetSurface());
+	bool extensions_supported = CheckDeviceExtensionSupport(device);
 
-	return indices.IsComplete();
+	bool swapchain_supported = false;
+	if (extensions_supported) {
+		SwapchainSupport(device);
+		swapchain_supported = !m_surface_formats.empty() && !m_present_modes.empty();
+	}
+
+	return indices.IsComplete() && extensions_supported && swapchain_supported;
+}
+
+bool Device::CheckDeviceExtensionSupport(VkPhysicalDevice device) {
+	uint32_t extension_count;
+	vkEnumerateDeviceExtensionProperties(device, nullptr, &extension_count, nullptr);
+
+	std::vector<VkExtensionProperties> available_extensions(extension_count);
+	vkEnumerateDeviceExtensionProperties(device, nullptr, &extension_count, available_extensions.data());
+
+	std::set<std::string> required_extensions(device_extensions.begin(), device_extensions.end());
+
+	for (const auto& extension : available_extensions) {
+		required_extensions.erase(extension.extensionName);
+	}
+
+	// Return true if empty
+	return required_extensions.empty();
+}
+
+void Device::SwapchainSupport(VkPhysicalDevice device) {
+	// Surface capabilities
+	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, m_surface->GetSurface(), &m_surface_capabilities);
+
+	uint32_t format_count; 
+	vkGetPhysicalDeviceSurfaceFormatsKHR(device, m_surface->GetSurface(), &format_count, nullptr);
+
+	// Resize to hold all available formats
+	if (format_count != 0) {
+		m_surface_formats.resize(format_count);
+		vkGetPhysicalDeviceSurfaceFormatsKHR(device, m_surface->GetSurface(), &format_count, m_surface_formats.data());
+	}
+
+	// See if present mode is available
+	uint32_t present_mode_count;
+	vkGetPhysicalDeviceSurfacePresentModesKHR(device, m_surface->GetSurface(), &present_mode_count, nullptr);
+	
+	if (present_mode_count != 0) {
+		m_present_modes.resize(present_mode_count);
+		vkGetPhysicalDeviceSurfacePresentModesKHR(device, m_surface->GetSurface(), &present_mode_count, m_present_modes.data());
+	}
 }

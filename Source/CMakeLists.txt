@@ -23,6 +23,7 @@ set(APP_SRCS
 
 		Vulkan/Device.cpp
 		Vulkan/Surface.cpp
+		Vulkan/Swapchain.cpp
 )
 
 set(APP_INC
@@ -33,6 +34,7 @@ set(APP_INC
 
 		Vulkan/Device.hpp
 		Vulkan/Surface.hpp
+		Vulkan/Swapchain.hpp
 )
 
 add_executable(TerrainGenerator ${APP_SRCS})

@@ -31,8 +31,14 @@ private:
 	VkQueue m_graphics_queue;
 	VkQueue m_present_queue;
 	Surface* m_surface;
+	VkSurfaceCapabilitiesKHR m_surface_capabilities;
+	std::vector<VkSurfaceFormatKHR> m_surface_formats;
+	std::vector<VkPresentModeKHR> m_present_modes;
 
 	void SelectPhysicalDevice();
 	void CreateDevice();
 	bool IsDeviceSuitable(VkPhysicalDevice device);
+	bool CheckDeviceExtensionSupport(VkPhysicalDevice device);
+
+	void SwapchainSupport(VkPhysicalDevice device);
 };
