@@ -78,7 +78,7 @@ void Device::SelectPhysicalDevice() {
 }
 
 void Device::CreateDevice() {
-	QueueFamilyIndices indices = FindQueueFamilies(m_physical_device, m_surface->GetSurface());
+	QueueFamilyIndices indices = FindQueueFamilies(m_physical_device, m_surface->Handle());
 	
 	std::vector< VkDeviceQueueCreateInfo> queue_create_infos{};
 	std::set<uint32_t> unique_queue_families = { indices.graphics_family.value(), indices.present_family.value() };
@@ -113,16 +113,10 @@ void Device::CreateDevice() {
 }
 
 bool Device::IsDeviceSuitable(VkPhysicalDevice device) {
-	QueueFamilyIndices indices = FindQueueFamilies(device, m_surface->GetSurface());
+	QueueFamilyIndices indices = FindQueueFamilies(device, m_surface->Handle());
 	bool extensions_supported = CheckDeviceExtensionSupport(device);
 
-	bool swapchain_supported = false;
-	if (extensions_supported) {
-		SwapchainSupport(device);
-		swapchain_supported = !m_surface_formats.empty() && !m_present_modes.empty();
-	}
-
-	return indices.IsComplete() && extensions_supported && swapchain_supported;
+	return indices.IsComplete() && extensions_supported;
 }
 
 bool Device::CheckDeviceExtensionSupport(VkPhysicalDevice device) {
@@ -140,27 +134,4 @@ bool Device::CheckDeviceExtensionSupport(VkPhysicalDevice device) {
 
 	// Return true if empty
 	return required_extensions.empty();
-}
-
-void Device::SwapchainSupport(VkPhysicalDevice device) {
-	// Surface capabilities
-	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, m_surface->GetSurface(), &m_surface_capabilities);
-
-	uint32_t format_count; 
-	vkGetPhysicalDeviceSurfaceFormatsKHR(device, m_surface->GetSurface(), &format_count, nullptr);
-
-	// Resize to hold all available formats
-	if (format_count != 0) {
-		m_surface_formats.resize(format_count);
-		vkGetPhysicalDeviceSurfaceFormatsKHR(device, m_surface->GetSurface(), &format_count, m_surface_formats.data());
-	}
-
-	// See if present mode is available
-	uint32_t present_mode_count;
-	vkGetPhysicalDeviceSurfacePresentModesKHR(device, m_surface->GetSurface(), &present_mode_count, nullptr);
-	
-	if (present_mode_count != 0) {
-		m_present_modes.resize(present_mode_count);
-		vkGetPhysicalDeviceSurfacePresentModesKHR(device, m_surface->GetSurface(), &present_mode_count, m_present_modes.data());
-	}
 }

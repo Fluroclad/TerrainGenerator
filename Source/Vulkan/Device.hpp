@@ -24,6 +24,9 @@ class Device {
 public:
 	Device(VkInstance& instance, Surface* m_surface);
 
+	VkDevice HandleDevice() const { return m_device; }
+	VkPhysicalDevice HandlePhysicalDevice() const { return m_physical_device; }
+
 private:
 	VkPhysicalDevice m_physical_device = VK_NULL_HANDLE;
 	VkDevice m_device;
@@ -31,6 +34,7 @@ private:
 	VkQueue m_graphics_queue;
 	VkQueue m_present_queue;
 	Surface* m_surface;
+
 	VkSurfaceCapabilitiesKHR m_surface_capabilities;
 	std::vector<VkSurfaceFormatKHR> m_surface_formats;
 	std::vector<VkPresentModeKHR> m_present_modes;
@@ -39,6 +43,4 @@ private:
 	void CreateDevice();
 	bool IsDeviceSuitable(VkPhysicalDevice device);
 	bool CheckDeviceExtensionSupport(VkPhysicalDevice device);
-
-	void SwapchainSupport(VkPhysicalDevice device);
 };

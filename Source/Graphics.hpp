@@ -10,6 +10,7 @@
 
 #include "Vulkan/Device.hpp"
 #include "Vulkan/Surface.hpp"
+#include "Vulkan/Swapchain.hpp"
 
 class Graphics {
 public:
@@ -23,6 +24,13 @@ private:
 	VkInstance m_instance;
 	Device* m_device;
 	Surface* m_surface;
+	Swapchain* m_swapchain;
+
+	VkSurfaceCapabilitiesKHR m_surface_capabilities;
+	std::vector<VkSurfaceFormatKHR> m_surface_formats;
+	std::vector<VkPresentModeKHR> m_present_modes;
 
 	bool CheckValidationLayers();
+
+	void SwapchainSupport();
 };

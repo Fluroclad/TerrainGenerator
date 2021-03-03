@@ -18,7 +18,7 @@ public:
 	
 	void SetTitle(const std::string& title);
 
-	GLFWwindow* GetWindow() { return m_window; }
+	GLFWwindow* Handle() const { return m_window; }
 
 private:
 	GLFWwindow* m_window;

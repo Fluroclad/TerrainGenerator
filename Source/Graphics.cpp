@@ -18,6 +18,7 @@ Graphics::Graphics(Window* window) {
 	CreateInstance();
 	m_surface = new Surface(m_instance, m_window);
 	m_device = new Device(m_instance, m_surface);
+	SwapchainSupport();
 }
 
 Graphics::~Graphics() {
@@ -88,4 +89,14 @@ bool Graphics::CheckValidationLayers() {
 	}
 
 	return true;
+}
+
+void Graphics::SwapchainSupport() {
+	VkSurfaceCapabilitiesKHR capabilities = m_surface->GetCapabilities(m_device);
+	std::vector<VkSurfaceFormatKHR> formats = m_surface->GetFormats(m_device);
+	std::vector<VkPresentModeKHR> present_modes = m_surface->GetPresentModes(m_device);
+
+	if (formats.size() == 0 || present_modes.size() == 0) {
+		throw std::runtime_error("Failed to create swap chain!");
+	}
 }
