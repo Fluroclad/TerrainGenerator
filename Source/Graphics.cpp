@@ -18,8 +18,6 @@ Graphics::Graphics(std::shared_ptr<Window>& window) : m_window(window) {
 	CreateInstance();
 	m_surface = std::make_shared<Surface>(m_instance, m_window);
 	m_device = std::make_shared<Device>(m_instance, m_surface);
-	//m_surface = new Surface(m_instance, m_window);
-	//m_device = new Device(m_instance, m_surface);
 	SwapchainSupport();
 }
 

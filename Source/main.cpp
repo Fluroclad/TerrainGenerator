@@ -5,8 +5,8 @@
 
 
 int main() {
-	App* game = new App(1280, 760, "Terrain Generator");
-
+	std::unique_ptr<App> game = std::make_unique<App>(1280, 760, "Terrain Generator");
+	
 	game->Run();
 
 	return 0;
