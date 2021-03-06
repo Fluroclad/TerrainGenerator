@@ -45,9 +45,8 @@ bool QueueFamilyIndices::IsComplete() {
 	return graphics_family.has_value() && present_family.has_value();
 }
 
-Device::Device(VkInstance& instance, Surface* surface) {
+Device::Device(VkInstance& instance, std::shared_ptr<Surface>& surface) : m_surface(surface) {
 	m_instance = instance;
-	m_surface = surface;
 
 	SelectPhysicalDevice();
 	CreateDevice();

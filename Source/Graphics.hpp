@@ -14,16 +14,16 @@
 
 class Graphics {
 public:
-	Graphics(Window* window);
+	Graphics(std::shared_ptr<Window>& window);
 	~Graphics();
 
 	void CreateInstance();
 
 private:
-	Window* m_window;
+	std::shared_ptr<Window>& m_window;
 	VkInstance m_instance;
-	Device* m_device;
-	Surface* m_surface;
+	std::shared_ptr<Device> m_device;
+	std::shared_ptr<Surface> m_surface;
 	Swapchain* m_swapchain;
 
 	VkSurfaceCapabilitiesKHR m_surface_capabilities;

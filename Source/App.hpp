@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include "Window.hpp"
 #include "Graphics.hpp"
 
@@ -18,6 +20,6 @@ public:
 	Window& GetWindow() { return *m_window; }
 
 private:
-	Window* m_window;
-	Graphics* m_graphics;
+	std::shared_ptr<Window> m_window;
+	std::unique_ptr<Graphics> m_graphics;
 };

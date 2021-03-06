@@ -22,7 +22,7 @@ struct QueueFamilyIndices {
 
 class Device {
 public:
-	Device(VkInstance& instance, Surface* m_surface);
+	Device(VkInstance& instance, std::shared_ptr<Surface>& m_surface);
 
 	VkDevice HandleDevice() const { return m_device; }
 	VkPhysicalDevice HandlePhysicalDevice() const { return m_physical_device; }
@@ -33,7 +33,7 @@ private:
 	VkInstance m_instance;
 	VkQueue m_graphics_queue;
 	VkQueue m_present_queue;
-	Surface* m_surface;
+	std::shared_ptr<Surface>& m_surface;
 
 	VkSurfaceCapabilitiesKHR m_surface_capabilities;
 	std::vector<VkSurfaceFormatKHR> m_surface_formats;

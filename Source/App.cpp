@@ -10,9 +10,8 @@ App::App(uint32_t width, uint32_t height, const std::string& title) {
 		// Initialization failed
 	}
 
-	m_window = new Window(width, height, title);
-
-	m_graphics = new Graphics(m_window);
+	m_window = std::make_shared<Window>(width, height, title);
+	m_graphics = std::make_unique<Graphics>(m_window);
 }
 
 App::~App() {

@@ -4,6 +4,7 @@
 #pragma once
 
 #include <vulkan/vulkan.h>
+#include<memory>
 #include <vector>
 #include <stdexcept>
 
@@ -12,13 +13,13 @@ class Device;
 
 class Surface {
 public:
-	Surface(VkInstance& instance, Window* window);
+	Surface(VkInstance& instance, std::shared_ptr<Window>& window);
 
 	VkSurfaceKHR Handle() const { return m_surface; }
 
-	VkSurfaceCapabilitiesKHR GetCapabilities(Device* device);
-	std::vector<VkSurfaceFormatKHR> GetFormats(Device* device);
-	std::vector<VkPresentModeKHR> GetPresentModes(Device* device);
+	VkSurfaceCapabilitiesKHR GetCapabilities(std::shared_ptr<Device>& device);
+	std::vector<VkSurfaceFormatKHR> GetFormats(std::shared_ptr<Device>& device);
+	std::vector<VkPresentModeKHR> GetPresentModes(std::shared_ptr<Device>& device);
 
 private:
 	VkSurfaceKHR m_surface;
