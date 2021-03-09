@@ -58,8 +58,6 @@ void Graphics::CreateInstance() {
 		create_info.pNext = nullptr;
 	}
 
-	create_info.enabledLayerCount = 0;
-
 	if (vkCreateInstance(&create_info, nullptr, &m_instance) != VK_SUCCESS) {
 		throw std::runtime_error("Failed to create vulkan instance!");
 	}
