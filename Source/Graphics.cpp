@@ -18,7 +18,7 @@ Graphics::Graphics(std::shared_ptr<Window>& window) : m_window(window) {
 	CreateInstance();
 	m_surface = std::make_shared<Surface>(m_instance, m_window);
 	m_device = std::make_shared<Device>(m_instance, m_surface);
-	SwapchainSupport();
+	m_swapchain = std::make_shared<Swapchain>(m_surface, m_device, m_window);
 }
 
 Graphics::~Graphics() {
@@ -57,7 +57,6 @@ void Graphics::CreateInstance() {
 		create_info.enabledLayerCount = 0;
 		create_info.pNext = nullptr;
 	}
-	
 
 	create_info.enabledLayerCount = 0;
 
@@ -89,14 +88,4 @@ bool Graphics::CheckValidationLayers() {
 	}
 
 	return true;
-}
-
-void Graphics::SwapchainSupport() {
-	VkSurfaceCapabilitiesKHR capabilities = m_surface->GetCapabilities(m_device);
-	std::vector<VkSurfaceFormatKHR> formats = m_surface->GetFormats(m_device);
-	std::vector<VkPresentModeKHR> present_modes = m_surface->GetPresentModes(m_device);
-
-	if (formats.size() == 0 || present_modes.size() == 0) {
-		throw std::runtime_error("Failed to create swap chain!");
-	}
 }

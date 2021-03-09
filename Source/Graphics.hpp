@@ -24,13 +24,11 @@ private:
 	VkInstance m_instance;
 	std::shared_ptr<Device> m_device;
 	std::shared_ptr<Surface> m_surface;
-	Swapchain* m_swapchain;
+	std::shared_ptr<Swapchain> m_swapchain;
 
 	VkSurfaceCapabilitiesKHR m_surface_capabilities;
 	std::vector<VkSurfaceFormatKHR> m_surface_formats;
 	std::vector<VkPresentModeKHR> m_present_modes;
 
 	bool CheckValidationLayers();
-
-	void SwapchainSupport();
 };

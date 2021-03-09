@@ -18,7 +18,7 @@ struct QueueFamilyIndices {
 
 	bool IsComplete();
 };
-
+QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surface);
 
 class Device {
 public:
